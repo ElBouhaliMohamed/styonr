@@ -3,26 +3,11 @@ import Link from 'next/link';
 import Cart from '../cart/Cart';
 import commerce from '../../lib/commerce';
 import Animation from '../cart/Animation';
-import { Transition } from 'react-transition-group';
 import { connect } from 'react-redux'
 import { clearCustomer } from '../../store/actions/authenticateActions';
+import { withRouter } from 'next/router'
 
-const duration = 300;
-
-const defaultStyle = {
-  zIndex: '-1',
-  transition: `height ${duration}ms ease-in-out`,
-  height: 0
-};
-
-const transitionStyles = {
-  entering: { height: '100vh' },
-  entered: { height: '100vh' },
-  exiting: { height: 0 },
-  exited: { height: 0 }
-};
-
-const mobileMenuLinks = [
+const menuLinks = [
   {
     name: 'Home',
     link: '/'
@@ -32,7 +17,15 @@ const mobileMenuLinks = [
     link: '/collection'
   },
   {
-    name: 'About',
+    name: 'Vision',
+    link: '/about'
+  },
+  {
+    name: 'Produktion',
+    link: '/about'
+  },
+  {
+    name: 'Kontakt',
     link: '/about'
   }
 ];
@@ -42,21 +35,22 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      showMobileMenu: false,
       showCart: false,
       playAddToCartAnimation: false,
       loggedIn: false,
+      isScolled: true,
     };
 
     this.header = React.createRef();
+    this.logoSection = React.createRef();
 
     this.animate = this.animate.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.toggleCart = this.toggleCart.bind(this);
-    this.toggleMobileMenu = this.toggleMobileMenu.bind(this);
     this.toggleAddToCartAnimation = this.toggleAddToCartAnimation.bind(this);
     this.handleAddToCartToggle = this.handleAddToCartToggle.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+
   }
 
   componentDidMount() {
@@ -92,25 +86,16 @@ class Header extends Component {
   }
 
   animate() {
-    const { transparent } = this.props;
-
-    if (!transparent) {return;}
-
     if (window.scrollY > 10) {
-      this.header.current.classList.add('invert');
+      this.setState({
+        isScrolled: true
+      })
+      this.header.current.classList.add('-translate-y-44');
     } else {
-      this.header.current.classList.remove('invert');
-    }
-  }
-
-  toggleMobileMenu() {
-    const { showMobileMenu } = this.state;
-    this.setState({ showMobileMenu: !showMobileMenu });
-
-    if (!showMobileMenu) {
-      this.header.current.classList.add('invert');
-    } else {
-      this.animate();
+      this.setState({
+        isScrolled: false
+      })
+      this.header.current.classList.remove('-translate-y-44');
     }
   }
 
@@ -132,30 +117,37 @@ class Header extends Component {
       this.toggleAddToCartAnimation();
     }, 3000)
   }
-
+  
   renderLoginLogout() {
-    const { customer } = this.props;
+    const { customer, cart } = this.props;
     const { loggedIn } = this.state;
 
     if (loggedIn) {
       return (
-        <div className="d-flex align-items-center">
-          { customer && customer.firstname && (
-            <span className="mr-2 font-weight-regular">
-              Hi, { customer.firstname }!
+        <div className="flex items-center gap-3">
+          <div
+            className="relative cursor-pointer"
+            onClick={this.toggleCart}
+          >
+            <div className="absolute text-xs -translate-x-1 font-bold">
+              {cart.total_items}
+            </div>
+            <Animation isStopped={this.state.playAddToCartAnimation} />
+          </div>
+          {customer && customer.firstname && (
+            <span className="font-extralight">
             </span>
-          ) }
-          <Link href="/account">
-            <a className="font-color-black mx-2">
-              My account
+          )}
+          <Link passHref href="/account">
+            <a>
+              <img alt='Account' src="/icon/user.svg" className='w-32' />
             </a>
           </Link>
           <button
-            className="bg-transparent mr-2 font-color-black font-weight-semibold"
             type="button"
             onClick={this.handleLogout}
           >
-            Logout
+            <img alt='Logout' src="/icon/logout.svg" className='w-32' />
           </button>
         </div>
       );
@@ -171,93 +163,66 @@ class Header extends Component {
   }
 
   render() {
-    const { showMobileMenu, showCart } = this.state;
-    const { transparent, cart } = this.props;
-
+    const { showCart, isScrolled } = this.state;
+    const { router } = this.props;
     return (
-      <header className="position-fixed top-0 left-0 right-0 font-weight-semibold no-print">
+      <header
+        ref={this.header}
+        className={`
+        fixed top-0 left-0 right-0 z-10 transition-all duration-700 ease-in-out
+        ${!isScrolled ? 'bg-white/20 backdrop-blur-sm' : 'bg-white/80 backdrop-blur-sm border-b border-slate-100'}
+        `}
+      >
         <Cart isOpen={showCart} toggle={value => this.toggleCart(value)} />
-        <div
-          ref={this.header}
-          className={`d-flex header align-items-center justify-content-between position-relative ${
-            transparent ? '' : 'invert'
-          }`}
-        >
-          <div className="d-none d-sm-flex">
-            <Link href="/collection">
-              <a className="mr-4 font-color-black">Shop</a>
-            </Link>
-            <Link href="/about">
-              <a className="font-color-black">About</a>
+        <div ref={this.logoSection} className='
+        transition-all duration-700 ease-in-out
+        flex items-center justify-center py-6 px-4
+        '>
+          <div className='inline-flex items-center justify-end w-2/4'>
+            <Link passHref href="/">
+              <a className={`
+                text-4xl sm:text-6xl lg:text-9xl
+              `}>STYONR</a>
             </Link>
           </div>
-          <div className="logo-container">
-            <img
-              src={`/icon/${showMobileMenu ? 'cross' : 'menu'}.svg`}
-              onClick={this.toggleMobileMenu}
-              className="w-32 mr-1 d-block d-sm-none"
-              alt="Menu icon"
-            />
-            <Link href="/">
-              <a>
-                <img
-                  src="/images/commerce.svg"
-                  className="logo cursor-pointer"
-                  alt="Logo"
-                />
-              </a>
-            </Link>
-          </div>
-          <div className="d-flex">
-            { process.browser && this.renderLoginLogout() }
-            <div
-              className="position-relative cursor-pointer"
-              onClick={this.toggleCart}
-            >
-              <Animation isStopped={ this.state.playAddToCartAnimation } />
-              <div className="cart-count position-absolute font-size-tiny font-weight-bold">
-                {cart.total_items}
-              </div>
-            </div>
+          <div className='flex items-center justify-end w-2/4'>
+            {process.browser && this.renderLoginLogout()}
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        <Transition in={showMobileMenu} timeout={duration}>
-          {state => (
-            <div
-              className="d-sm-none position-fixed left-0 right-0 overflow-hidden"
-              style={{
-                ...defaultStyle,
-                ...transitionStyles[state],
-                // Prevent gap being shown at bottom of mobile menu
-                top: '1em'
-              }}
-            >
-              <div
-                className="position-absolute left-0 right-0 h-100vh mobile-menu-inner bg-black700 d-flex flex-column justify-content-center"
-                style={{
-                  // Prevent mobile menu items (e.g. Home) being hidden behind navbar on small screen heights (e.g. iPhone4 landscape of 320px height)
-                  top: '4em'
-                }}
-              >
-                {mobileMenuLinks.map((item, i) => (
-                  <Link key={i} href={item.link}>
-                    <a className="d-block mb-4 font-size-heading font-color-white text-center">
-                      {item.name}
-                    </a>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-        </Transition>
+        <div className='flex items-center py-6 px-4'>
+          <div className='w-1/3'>
+            <Link passHref href="/">
+              <a className={`
+                text-2xl transition-all duration-700 ease-in-out font-extrabold
+                ${!isScrolled ? 'opacity-0' : 'opacity-100'}
+              `}>STYONR</a>
+            </Link>
+          </div>
+          <nav className="flex flex-row items-center justify-center space-y-1 w-1/3" aria-label="Sidebar">
+            {menuLinks.map((value, index) => {
+              return <Link
+                passHref href={value.link} key={index}>
+                <a
+                  className={router.pathname == value.link
+                    ? 'flex items-center px-3 py-2 text-md lg:text-lg font-medium rounded-md bg-gray-100 text-gray-900'
+                    : 'flex items-center px-3 py-2 text-md lg:text-lg font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900'}
+                >{value.name}</a>
+              </Link>
+            })}
+          </nav>
+          <div className={`
+                transition-all duration-700 ease-in-out w-1/3 inline-flex justify-end
+                ${!isScrolled ? 'opacity-0' : 'opacity-100'}
+              `}>
+            {process.browser && this.renderLoginLogout()}
+          </div>
+        </div>
       </header>
-    );
+    )
   }
 }
 
 export default connect(
   state => state,
   { clearCustomer },
-)(Header);
+)(withRouter(Header));

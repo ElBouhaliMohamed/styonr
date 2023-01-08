@@ -10,17 +10,17 @@ import CategoryBanner from '../components/homepage/CategoryBanner';
 import ProductsBanner from '../components/homepage/ProductsBanner';
 
 const Home = () => (
-  <Root transparentHeader={true}>
+  <Root transparent={false}>
     <Head>
       <title>Home | commerce</title>
     </Head>
 
     <HeroSection />
+    <ProductsBanner />
     <HomeBanner />
     <CategoryBanner />
-    <ProductsBanner />
-    <ExploreBanner />
     <SocialMedia />
+    <ExploreBanner />
     <Footer />
   </Root>
 );

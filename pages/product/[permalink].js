@@ -15,6 +15,7 @@ import Footer from '../../components/common/Footer';
 import SocialMedia from '../../components/common/SocialMedia';
 import CategoryList from '../../components/products/CategoryList';
 import reduceProductImages from '../../lib/reduceProductImages';
+import Header from '../../components/common/Header';
 
 const detailView = `<p>
   Slightly textured fabric with tonal geometric design and a bit of shine
@@ -68,7 +69,7 @@ export default function Product() {
       <Head>
         <title>{ product.name } | commerce</title>
       </Head>
-
+      <Header />
       <div className="py-5 my-5">
       <div className="main-product-content">
         {/* Sidebar */}

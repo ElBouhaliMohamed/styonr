@@ -37,7 +37,10 @@
   },
   "devDependencies": {
     "@chec/seeder": "^1.1.1",
+    "autoprefixer": "^10.4.13",
     "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2"
+    "eslint-config-next": "11.1.2",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4"
   }
 }

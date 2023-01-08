@@ -134,7 +134,7 @@ class Collections extends Component {
           {/* Sidebar */}
           <div
             ref={this.sidebar}
-            className="position-fixed left-0 right-0"
+            className=""
             style={{ top: '7.5rem' }}
           >
             { this.renderSidebar() }

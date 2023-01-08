@@ -8,6 +8,7 @@ import commerce from '../../lib/commerce';
 import Root from '../../components/common/Root';
 import Footer from '../../components/common/Footer';
 import LoginAnimation from '../../components/customer/LoginAnimation';
+import Header from '../../components/common/Header';
 
 class LoginHandler extends Component {
   constructor(props) {
@@ -176,6 +177,7 @@ class LoginHandler extends Component {
         <Head>
           <title>Login</title>
         </Head>
+        <Header />
         <div className="login-container pt-1 pb-0 px-3 pt-sm-0 px-sm-0 mx-auto my-0 mw-1600">
           <div className="row mt-5 pt-5">
             <div className="col-12 col-md-6 col-lg-6 offset-lg-3 offset-md-3  row-content text-center">
