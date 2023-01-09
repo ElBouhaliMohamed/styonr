@@ -5,30 +5,7 @@ import commerce from '../../lib/commerce';
 import Animation from '../cart/Animation';
 import { connect } from 'react-redux'
 import { clearCustomer } from '../../store/actions/authenticateActions';
-import { withRouter } from 'next/router'
-
-const menuLinks = [
-  {
-    name: 'Home',
-    link: '/'
-  },
-  {
-    name: 'Shop',
-    link: '/collection'
-  },
-  {
-    name: 'Vision',
-    link: '/about'
-  },
-  {
-    name: 'Produktion',
-    link: '/about'
-  },
-  {
-    name: 'Kontakt',
-    link: '/about'
-  }
-];
+import Navigation from './Navigation';
 
 class Header extends Component {
   constructor(props) {
@@ -38,7 +15,8 @@ class Header extends Component {
       showCart: false,
       playAddToCartAnimation: false,
       loggedIn: false,
-      isScolled: true,
+      isScrolled: false,
+      showMobile: false,
     };
 
     this.header = React.createRef();
@@ -46,6 +24,7 @@ class Header extends Component {
 
     this.animate = this.animate.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+    this.activateMobileMenu = this.activateMobileMenu.bind(this);
     this.toggleCart = this.toggleCart.bind(this);
     this.toggleAddToCartAnimation = this.toggleAddToCartAnimation.bind(this);
     this.handleAddToCartToggle = this.handleAddToCartToggle.bind(this);
@@ -54,6 +33,8 @@ class Header extends Component {
   }
 
   componentDidMount() {
+    this.activateMobileMenu();
+    window.addEventListener('resize', this.activateMobileMenu);
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('Commercejs.Cart.Item.Added', this.handleAddToCartToggle);
 
@@ -63,6 +44,7 @@ class Header extends Component {
   }
 
   componentWillUnmount() {
+    window.addEventListener('resize', this.activateMobileMenu);
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('Commercejs.Cart.Item.Added', this.handleAddToCartToggle);
   }
@@ -72,6 +54,12 @@ class Header extends Component {
     this.setState({
       showCart: !showCart,
     });
+  }
+
+  toggleMobileMenu() {
+    this.setState(state => ({
+      showCart: !state.showMobile,
+    }));
   }
 
   handleScroll() {
@@ -85,17 +73,35 @@ class Header extends Component {
     });
   }
 
+  activateMobileMenu() {
+    const { currentBreakpoint } = this.props;
+    const isMobile = currentBreakpoint === 'sm'
+    console.log('Is Mobile')
+    if(isMobile) {
+      this.header.current.classList.add('mobile-header');
+    } else {
+      this.header.current.classList.remove('mobile-header');
+    }
+  }
+
   animate() {
+    const { currentBreakpoint } = this.props;
+    const isMobile = currentBreakpoint === 'sm'
+
+    if(isMobile) {
+      return;
+    }
+
     if (window.scrollY > 10) {
       this.setState({
         isScrolled: true
       })
-      this.header.current.classList.add('-translate-y-44');
+      this.header.current.classList.add('animate-header');
     } else {
       this.setState({
         isScrolled: false
       })
-      this.header.current.classList.remove('-translate-y-44');
+      this.header.current.classList.remove('animate-header');
     }
   }
 
@@ -117,7 +123,7 @@ class Header extends Component {
       this.toggleAddToCartAnimation();
     }, 3000)
   }
-  
+
   renderLoginLogout() {
     const { customer, cart } = this.props;
     const { loggedIn } = this.state;
@@ -164,55 +170,47 @@ class Header extends Component {
 
   render() {
     const { showCart, isScrolled } = this.state;
-    const { router } = this.props;
+    const { currentBreakpoint } = this.props;
+    const isScrolledAndAllowed = currentBreakpoint === 'sm' || isScrolled
+
     return (
       <header
         ref={this.header}
         className={`
         fixed top-0 left-0 right-0 z-10 transition-all duration-700 ease-in-out
-        ${!isScrolled ? 'bg-white/20 backdrop-blur-sm' : 'bg-white/80 backdrop-blur-sm border-b border-slate-100'}
+        ${!isScrolledAndAllowed ? 'bg-white/20' : 'bg-white/80 backdrop-blur-md border-b border-slate-100'}
         `}
-      >
+      > 
         <Cart isOpen={showCart} toggle={value => this.toggleCart(value)} />
         <div ref={this.logoSection} className='
         transition-all duration-700 ease-in-out
         flex items-center justify-center py-6 px-4
         '>
-          <div className='inline-flex items-center justify-end w-2/4'>
+          <div className='inline-flex items-center justify-center'>
             <Link passHref href="/">
               <a className={`
-                text-4xl sm:text-6xl lg:text-9xl
-              `}>STYONR</a>
+                text-4xl sm:text-6xl lg:text-9xl uppercase
+              `}>styonr</a>
             </Link>
-          </div>
-          <div className='flex items-center justify-end w-2/4'>
-            {process.browser && this.renderLoginLogout()}
           </div>
         </div>
         <div className='flex items-center py-6 px-4'>
+          { isScrolledAndAllowed &&
+          <button className='sm:hidden bg-transparent'>
+            <img src="/icon/menu.svg" className='w-10' />
+          </button>
+          }
           <div className='w-1/3'>
             <Link passHref href="/">
               <a className={`
                 text-2xl transition-all duration-700 ease-in-out font-extrabold
-                ${!isScrolled ? 'opacity-0' : 'opacity-100'}
+                ${!isScrolledAndAllowed ? 'opacity-0' : 'opacity-100'}
               `}>STYONR</a>
             </Link>
           </div>
-          <nav className="flex flex-row items-center justify-center space-y-1 w-1/3" aria-label="Sidebar">
-            {menuLinks.map((value, index) => {
-              return <Link
-                passHref href={value.link} key={index}>
-                <a
-                  className={router.pathname == value.link
-                    ? 'flex items-center px-3 py-2 text-md lg:text-lg font-medium rounded-md bg-gray-100 text-gray-900'
-                    : 'flex items-center px-3 py-2 text-md lg:text-lg font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900'}
-                >{value.name}</a>
-              </Link>
-            })}
-          </nav>
+          <Navigation className='hidden md:block' />
           <div className={`
-                transition-all duration-700 ease-in-out w-1/3 inline-flex justify-end
-                ${!isScrolled ? 'opacity-0' : 'opacity-100'}
+                transition-all duration-700 ease-in-out w-full md:w-1/3 inline-flex justify-end
               `}>
             {process.browser && this.renderLoginLogout()}
           </div>
@@ -223,6 +221,8 @@ class Header extends Component {
 }
 
 export default connect(
-  state => state,
+  (state) => ({
+    currentBreakpoint: state.currentBreakpoint
+  }),
   { clearCustomer },
-)(withRouter(Header));
+)(Header);

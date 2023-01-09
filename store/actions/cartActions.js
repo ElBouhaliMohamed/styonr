@@ -8,7 +8,7 @@ import {
   UPDATE_CART_ITEM_SUCCESS,
   UPDATE_CART_ITEM_ERROR,
   REMOVE_FROM_CART_SUCCESS,
-  REMOVE_FROM_CART_ERROR
+  REMOVE_FROM_CART_ERROR,
 } from './actionTypes';
 
 // Create all Cart actions, define the callbacks to the reducers

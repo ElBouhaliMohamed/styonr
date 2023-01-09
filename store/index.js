@@ -18,11 +18,13 @@ import {
   ABORT_CHECKOUT,
   SET_CUSTOMER,
   CLEAR_CUSTOMER,
+  UPDATE_BREAKPOINT,
 } from './actions/actionTypes';
 
 let store
 // Declare initial state
 const initialState = {
+  currentBreakpoint: '',
   categories: [],
   products: [],
   cart: {},
@@ -108,6 +110,8 @@ const reducer = (state = initialState, action) => {
     // Dispatch in Checkout client-side
     case CAPTURE_ORDER_SUCCESS:
       return { ...state, checkout: initialState.checkout, orderReceipt: action.payload };
+    case UPDATE_BREAKPOINT:
+      return { ...state, currentBreakpoint: action.payload || state.currentBreakpoint  }
     default:
       return state;
   }
