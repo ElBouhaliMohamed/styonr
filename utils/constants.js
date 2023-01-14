@@ -1,0 +1,1 @@
+export const SHOPE_NAME = 'styonar';

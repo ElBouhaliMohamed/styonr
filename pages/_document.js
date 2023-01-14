@@ -43,6 +43,7 @@ class MyDocument extends Document {
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
         <body>
+          <div id='modals'></div>
           <Main />
           <NextScript />
         </body>

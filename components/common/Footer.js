@@ -1,8 +1,9 @@
 import React from 'react';
+import { SHOPE_NAME } from '../../utils/constants';
 
 const Footer = () => (
   <footer className="pt-5">
-    <div className="custom-container mb-5 pb-5 pt-5">
+    {/* <div className="custom-container mb-5 pb-5 pt-5">
       <div className="row">
         <div className="col-12 col-sm-6 col-md-4">
           <p className="font-family-secondary font-size-display1 mb-4">
@@ -29,7 +30,7 @@ const Footer = () => (
             </div>
           </div>
         </div>
-        {/* <div className="col-12 col-md-4">
+        <div className="col-12 col-md-4">
           <p className="font-family-secondary font-size-display1 mb-3">
             Newsletter
           </p>
@@ -42,20 +43,20 @@ const Footer = () => (
               <img src="/icon/arrow-long-right.svg" className="w-24" alt="Arrow icon"/>
             </button>
           </div>
-        </div> */}
+        </div>
       </div>
-    </div>
+    </div> */}
     <div className="pt-md-5">
-      <div className="bg-brand300">
+      <div className="bg-transparent">
         <div className="custom-container d-flex flex-column flex-md-row align-items-center justify-content-between">
-          <div className="font-color-brand font-size-caption py-4 text-right">
-          <a
+          <div className="py-4">
+            <a
               href="https://commercejs.com/"
-              className="font-color-brand font-size-caption text-uppercase text-center"
+              className="text-primary-500 text-base font-bold text-uppercase text-center"
               target="_blank"
               rel="noopener noreferrer"
             >
-              &copy; { new Date().getFullYear() } STYONR
+              &copy; {new Date().getFullYear()} {SHOPE_NAME}
             </a>
           </div>
         </div>

@@ -28,7 +28,7 @@ const menuLinks = [
 export default function Navigation() {
   const router = useRouter();
 
-  return <nav className="hidden sm:flex flex-row items-center justify-center gap-2 w-1/3" aria-label="Sidebar">
+  return (<nav className="hidden sm:flex flex-row items-center justify-center gap-2 w-1/3" aria-label="Sidebar">
     {menuLinks.map((value, index) => {
       return <Link
         passHref href={value.link} key={index}>
@@ -39,5 +39,5 @@ export default function Navigation() {
         >{value.name}</a>
       </Link>
     })}
-  </nav>
+  </nav>)
 }
