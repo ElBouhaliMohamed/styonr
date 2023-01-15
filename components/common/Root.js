@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
+import ClientOnly from './atoms/ClientOnly';
 import { getDeviceConfig } from '../../hooks/useTailwindBreakpoint'
 import { useDispatch } from 'react-redux';
 import { updateCurrentBreakpoint } from '../../store/actions/globalActions';
@@ -7,7 +8,7 @@ import { updateCurrentBreakpoint } from '../../store/actions/globalActions';
 /* eslint-disable react-hooks/rules-of-hooks */
 export default function Root({ transparent, children }) {
   // write current screen breakpoint into redux store
-  if (process.browser) {
+  if (typeof window !== 'undefined') {
     const dispatch = useDispatch()
     const [width, setWidth] = useState(window.innerWidth)
 
@@ -24,7 +25,9 @@ export default function Root({ transparent, children }) {
 
   return (
     <>
-      <Header />
+      <ClientOnly>
+        <Header />
+      </ClientOnly>
       <div className={!transparent ? 'pt-[76px] sm:pt-[188px] md:pt-[192px] lg:pt-[272px]' : ''}>
         {children}
       </div>

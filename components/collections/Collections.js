@@ -54,20 +54,18 @@ class Collections extends Component {
                 <p className="font-size-title font-weight-medium mb-3">
                   {category.name}
                 </p>
-                <Link href={`/collection#${category.slug}`}>
-                  <a className="mb-5 font-color-black">
-                    <div className="d-flex">
-                      <p className="mb-2 position-relative cursor-pointer">
-                        Products
-                        <span
-                          className="position-absolute font-size-tiny text-right"
-                          style={{ right: '-12px', top: '-4px' }}
-                        >
-                          {category.products}
-                        </span>
-                      </p>
-                    </div>
-                  </a>
+                <Link className="mb-5 font-color-black" href={`/collection#${category.slug}`}>
+                  <div className="d-flex">
+                    <p className="mb-2 position-relative cursor-pointer">
+                      Products
+                      <span
+                        className="position-absolute font-size-tiny text-right"
+                        style={{ right: '-12px', top: '-4px' }}
+                      >
+                        {category.products}
+                      </span>
+                    </p>
+                  </div>
                 </Link>
               </div>
             </div>

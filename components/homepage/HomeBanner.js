@@ -11,11 +11,9 @@ export default function HomeBanner() {
         Unser Motto? Fuck fast fashion!
       </p>
       <div className="d-flex align-items-center justify-content-center mt-3 mb-5">
-        <Link href="/about">
-          <a className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
-            <p className="mr-3">Mehr herausfinden</p>
-            <img src="/icon/arrow-long-right.svg" />
-          </a>
+        <Link href="/about" className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
+          <p className="mr-3">Mehr herausfinden</p>
+          <img src="/icon/arrow-long-right.svg" />
         </Link>
       </div>
     </div>

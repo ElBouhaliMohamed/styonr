@@ -51,14 +51,12 @@ export default function MobileNavigation({ toggleMobileMenu }) {
           <img src="/icon/cross.svg" title="Close menu" alt="Close menu" />
         </button>
         {menuLinks.map((item, i) => (
-          <Link key={i} href={item.link}>
-            <a className="
-            block font-bold text-3xl text-center py-1
-            text-secondary-500 hover:bg-primary-400
-              hover:text-secondary-600
-            ">
-              {item.name}
-            </a>
+          <Link className="
+          block font-bold text-3xl text-center py-1
+          text-secondary-500 hover:bg-primary-400
+            hover:text-secondary-600
+          " key={i} href={item.link}>
+            {item.name}
           </Link>
         ))}
       </div>

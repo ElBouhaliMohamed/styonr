@@ -7,6 +7,7 @@ import commerce from '../../lib/commerce';
 import Animation from '../cart/Animation';
 import Navigation from './Navigation';
 import Portal from './atoms/Portal';
+import ClientOnly from './atoms/ClientOnly';
 import MobileNavigation from './MobileNavigation';
 import { SHOPE_NAME } from '../../utils/constants'
 
@@ -88,7 +89,7 @@ class Header extends Component {
       this.header.current?.classList.add('mobile-header');
     } else {
       this.header.current?.classList.remove('mobile-header');
-      this.setState( _ => ({
+      this.setState(_ => ({
         showMobileMenu: false,
       }));
     }
@@ -137,7 +138,7 @@ class Header extends Component {
   }
 
   renderLoginLogout() {
-    const { customer } = this.props;
+    const { customer, cart } = this.props;
     const { loggedIn } = this.state;
 
     if (loggedIn) {
@@ -157,9 +158,7 @@ class Header extends Component {
             </span>
           )}
           <Link passHref href="/account">
-            <a>
-              <img alt='Account' src="/icon/user.svg" className='w-32' />
-            </a>
+            <img alt='Account' src="/icon/user.svg" className='w-32' />
           </Link>
           <button
             type="button"
@@ -172,16 +171,14 @@ class Header extends Component {
     }
 
     return (
-      <Link href="/login">
-        <a className="text-black font-semibold text-md">
-          Login
-        </a>
+      <Link className="text-black font-semibold text-md" href="/login">
+        Login
       </Link>
     );
   }
 
   render() {
-    const { showCart, isScrolled, showMobileMenu } = this.state;
+    const { showCart, isScrolled, showMobileMenu, loggedIn } = this.state;
     const { currentBreakpoint, cart } = this.props;
     const isScrolledAndAllowed = currentBreakpoint === 'sm' || isScrolled;
     return (
@@ -192,37 +189,35 @@ class Header extends Component {
         ${!isScrolledAndAllowed ? 'bg-white/20' : 'bg-white/80 backdrop-blur-md border-b border-slate-100'}
         `}
       >
-        {
-          process.browser &&
+        <ClientOnly>
           <Portal nodeID='modals'>
             <Cart isOpen={showCart} toggle={value => this.toggleCart(value)} />
           </Portal>
-        }
+        </ClientOnly>
         <div className='
         transition-all duration-700 ease-in-out
         flex items-center justify-center py-6 px-4
         '>
           <div className='inline-flex items-center justify-center'>
-            <Link passHref href="/">
-              <a className={`
+            <Link className={`
                 text-4xl sm:text-6xl lg:text-9xl font-bold uppercase text-primary
-              `}>{ SHOPE_NAME }</a>
+              `} passHref href="/">
+              {SHOPE_NAME}
             </Link>
           </div>
         </div>
         <div className='flex items-center py-6 px-4'>
           {
-          isScrolledAndAllowed &&
+            isScrolledAndAllowed &&
             <button onClick={this.toggleMobileMenu} className='sm:hidden bg-transparent'>
               <img src="/icon/menu.svg" className='w-10' />
             </button>
           }
           <div className='w-1/3'>
-            <Link passHref href="/">
-              <a className={`
+            <Link passHref href="/" className={`
                 text-2xl transition-all duration-700 ease-in-out font-extrabold uppercase text-primary
                 ${!isScrolledAndAllowed ? 'opacity-0' : 'opacity-100'}
-              `}>{ SHOPE_NAME }</a>
+              `}>{SHOPE_NAME}
             </Link>
           </div>
           <Navigation className='hidden md:block' />
@@ -231,8 +226,8 @@ class Header extends Component {
             w-full md:w-1/3 inline-flex items-center justify-end
             gap-3
           `}>
-            {process.browser && this.renderLoginLogout()}
-            <div
+            {typeof window !== 'undefined' && this.renderLoginLogout()}
+            {!loggedIn && <div
               className="relative flex flex-row-reverse cursor-pointer"
               onClick={this.toggleCart}
             >
@@ -240,12 +235,12 @@ class Header extends Component {
               <div className="absolute text-xs font-bold">
                 {cart.total_items}
               </div>
-            </div>
+            </div>}
           </div>
         </div>
 
         {
-          (process.browser && showMobileMenu ) &&
+          (typeof window !== 'undefined' && showMobileMenu) &&
           <Portal nodeID='modals'>
             <MobileNavigation toggleMobileMenu={this.toggleMobileMenu} />
           </Portal>

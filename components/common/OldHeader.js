@@ -145,10 +145,8 @@ class Header extends Component {
               Hi, { customer.firstname }!
             </span>
           ) }
-          <Link href="/account">
-            <a className="font-color-black mx-2">
-              My account
-            </a>
+          <Link href="/account" className="font-color-black mx-2">
+            My account
           </Link>
           <button
             className="bg-transparent mr-2 font-color-black font-weight-semibold"
@@ -162,10 +160,8 @@ class Header extends Component {
     }
 
     return (
-      <Link href="/login">
-        <a className="font-color-black login">
-          Login
-        </a>
+      <Link href="/login" className="font-color-black login">
+        Login
       </Link>
     );
   }
@@ -186,11 +182,11 @@ class Header extends Component {
           }`}
         >
           <div className="d-none d-sm-flex">
-            <Link href="/collection">
-              <a className="mr-4 font-color-black">Shop</a>
+            <Link href="/collection" className="mr-4 font-color-black">
+              Shop
             </Link>
-            <Link href="/about">
-              <a className="font-color-black">About</a>
+            <Link href="/about" className="font-color-black">
+              About
             </Link>
           </div>
           <div className="logo-container">
@@ -201,11 +197,9 @@ class Header extends Component {
               alt="Menu icon"
             />
             <Link href="/">
-              <a>
-                <h1 className='text-7xl'>
-                  STYONR
-                </h1>
-              </a>
+              <h1 className='text-7xl'>
+                STYONR
+              </h1>
             </Link>
           </div>
           <div className="d-flex">
@@ -242,10 +236,8 @@ class Header extends Component {
                 }}
               >
                 {mobileMenuLinks.map((item, i) => (
-                  <Link key={i} href={item.link}>
-                    <a className="d-block mb-4 font-size-heading font-color-white text-center">
-                      {item.name}
-                    </a>
+                  <Link key={i} href={item.link} className="d-block mb-4 font-size-heading font-color-white text-center">
+                    {item.name}
                   </Link>
                 ))}
               </div>

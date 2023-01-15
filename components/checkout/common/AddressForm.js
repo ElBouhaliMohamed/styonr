@@ -9,6 +9,7 @@ export default class AddressForm extends Component {
 
     this.state = {
       subdivisions: {},
+      countries: {},
     };
 
     this.getRegions = this.getRegions.bind(this);
@@ -44,8 +45,8 @@ export default class AddressForm extends Component {
   render() {
     const {
       type,
-      countries,
       country,
+      countries,
       region,
       name,
       townCity,

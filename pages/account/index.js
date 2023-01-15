@@ -56,7 +56,7 @@ class CustomerAccountPage extends Component {
       return null;
     }
     return (
-      <small><strong>Customer since:</strong> { this.formatDate(this.props.customer.created) }</small>
+      <small><strong>Kunde seit:</strong> { this.formatDate(this.props.customer.created) }</small>
     );
   }
 
@@ -149,7 +149,7 @@ class CustomerAccountPage extends Component {
     if (!orders || !orders.length) {
       return (
         <div>
-          You havent placed an order yet!
+          Sie haben noch keine Bestellung plaziert!
         </div>
       );
     }
@@ -177,7 +177,7 @@ class CustomerAccountPage extends Component {
     if (!orders || !orders.length) {
       return (
         <div className="card text-center p-2">
-          <p>You haven&apos;t placed any orders yet!</p>
+          <p>Sie haben noch keine Bestellung plaziert!</p>
         </div>
       );
     }
@@ -200,7 +200,7 @@ class CustomerAccountPage extends Component {
               <td>
                 <div>
                   <Link href={`account/${order.id}`}>
-                    <a>#{ order.customer_reference }</a>
+                    #{ order.customer_reference }
                   </Link>
                 </div>
                 <small className="text-muted">{ this.formatDate(order.created) }</small>
@@ -214,7 +214,7 @@ class CustomerAccountPage extends Component {
               <td>{ order.order_value.formatted_with_symbol }</td>
               <td>
                 <Link href={`account/${order.id}`}>
-                  <a>View order</a>
+                  View order
                 </Link>
               </td>
             </tr>
@@ -269,14 +269,14 @@ class CustomerAccountPage extends Component {
     return (
       <Root>
         <Head>
-          <title>Account</title>
+          <title>Konto</title>
         </Head>
         <div className="account-container">
           <div className="custom-container py-5 my-4 my-sm-5">
             <div className="row mt-4">
               <div className="col-12">
                 <h2 className="font-size-header mb-4 pt-5 text-center">
-                  My account
+                  Mein Konto
                 </h2>
                 { this.renderAlert() }
               </div>
@@ -284,7 +284,7 @@ class CustomerAccountPage extends Component {
             <div className="row mt-5 pt-5">
               <div className="col-12 col-md-8 col-lg-8">
                 <div className="d-flex flex-row justify-content-between">
-                  <h5>Order history</h5>
+                  <h5>Bestellhistorie</h5>
                   { this.customerSince() }
                 </div>
                 { this.renderOrdersTable() }
@@ -303,7 +303,7 @@ class CustomerAccountPage extends Component {
                     { email }
                   </a>
                   <h6>
-                    Shipping address
+                    Lieferadresse
                   </h6>
                   { this.renderShippingAddress() }
                 </div>

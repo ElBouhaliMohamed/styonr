@@ -13,16 +13,15 @@ import { SHOPE_NAME } from '../utils/constants';
 const Home = () => (
   <Root transparent={false}>
     <Head>
-      <title>{ SHOPE_NAME.toUpperCase() } SHOP </title>
+      {/* <title>{ SHOPE_NAME.toUpperCase() } SHOP </title> */}
     </Head>
 
     <ProductsBanner />
     <HeroSection />
     <HomeBanner />
     {/* <CategoryBanner /> */}
-    <ExploreBanner />
-
-    <SocialMedia />
+    {/* <ExploreBanner /> */}
+    {/* <SocialMedia /> */}
     <Footer />
   </Root>
 );

@@ -20,11 +20,9 @@ class ProductsBanner extends Component {
           >
             Limited reservations on upcoming products and restocks.
           </p>
-          <Link href="/collection">
-            <a className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
-              <p className="mr-3">Mehr Produkte</p>
-              <img src="/icon/arrow-long-right.svg" />
-            </a>
+          <Link href="/collection" className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
+            <p className="mr-3">Mehr Produkte</p>
+            <img src="/icon/arrow-long-right.svg" />
           </Link>
         </div>
         <ProductRow products={products.slice(0, 4)} />

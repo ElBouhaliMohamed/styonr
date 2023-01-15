@@ -18,6 +18,7 @@ class LoginHandler extends Component {
       loading: false,
       isError: false,
       message: null,
+      email: ''
     };
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);

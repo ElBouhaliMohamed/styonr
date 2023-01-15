@@ -36,18 +36,18 @@ class CheckoutPage extends Component {
 
       // string property names to conveniently identify inputs related to commerce.js validation errors
       // e.g error { param: "shipping[name]"}
-      'customer[first_name]': 'John',
-      'customer[last_name]': 'Doe',
-      'customer[email]': 'john@doe.com',
+      'customer[first_name]': '',
+      'customer[last_name]': '',
+      'customer[email]': '',
       'customer[phone]': '',
       'customer[id]': null,
-      'shipping[name]': 'John Doe',
-      'shipping[street]': '318 Homer Street',
+      'shipping[name]': '',
+      'shipping[street]': '',
       'shipping[street_2]': '',
-      'shipping[town_city]': 'Vancouver',
-      'shipping[region]': 'BC',
-      'shipping[postal_zip_code]': 'V6B 2V2',
-      'shipping[country]': 'CA',
+      'shipping[town_city]': '',
+      'shipping[region]': '',
+      'shipping[postal_zip_code]': '',
+      'shipping[country]': 'DE',
       'billing[name]': '',
       'billing[street]': '',
       'billing[street_2]': '',
@@ -550,10 +550,8 @@ class CheckoutPage extends Component {
             <div className="col-12 col-md-10 col-lg-6 offset-md-1 offset-lg-0">
               {/* Breadcrumbs */}
               <div className="d-flex pb-4 breadcrumb-container">
-                <Link href="/collection">
-                  <a className="font-color-dark font-size-caption text-decoration-underline cursor-pointer">
-                    Cart
-                  </a>
+                <Link href="/collection" className="font-color-dark font-size-caption text-decoration-underline cursor-pointer">
+                  Cart
                 </Link>
                 <img src="/icon/arrow-right.svg" className="w-16 mx-1" alt="Arrow icon"/>
                 <div className="font-size-caption font-weight-bold cursor-pointer">
