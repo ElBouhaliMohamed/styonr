@@ -9,14 +9,15 @@ import HomeBanner from '../components/homepage/HomeBanner';
 import CategoryBanner from '../components/homepage/CategoryBanner';
 import ProductsBanner from '../components/homepage/ProductsBanner';
 import { SHOP_NAME } from '../utils/constants';
+import commerce from '../lib/commerce';
 
-const Home = () => (
+const Home = ({ products }) => (
   <Root transparent={false}>
     <Head>
       {/* <title>{ SHOP_NAME } SHOP </title> */}
     </Head>
 
-    <ProductsBanner />
+    <ProductsBanner products={products} />
     <HeroSection />
     <HomeBanner />
     {/* <CategoryBanner /> */}
@@ -25,5 +26,14 @@ const Home = () => (
     <Footer />
   </Root>
 );
+
+export async function getServerSideProps() {
+  const res = await commerce.products.list();
+  return {
+    props: {
+      products: res.data
+    }
+  }
+}
 
 export default Home;
