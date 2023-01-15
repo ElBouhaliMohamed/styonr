@@ -1,5 +1,5 @@
 import React from 'react';
-import { SHOPE_NAME } from '../../utils/constants';
+import { SHOP_NAME } from '../../utils/constants';
 
 const Footer = () => (
   <footer className="pt-5">
@@ -56,7 +56,7 @@ const Footer = () => (
               target="_blank"
               rel="noopener noreferrer"
             >
-              &copy; {new Date().getFullYear()} {SHOPE_NAME}
+              &copy; {new Date().getFullYear()} {SHOP_NAME}
             </a>
           </div>
         </div>

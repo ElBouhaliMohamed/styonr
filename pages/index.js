@@ -8,12 +8,12 @@ import HeroSection from '../components/homepage/HeroSection';
 import HomeBanner from '../components/homepage/HomeBanner';
 import CategoryBanner from '../components/homepage/CategoryBanner';
 import ProductsBanner from '../components/homepage/ProductsBanner';
-import { SHOPE_NAME } from '../utils/constants';
+import { SHOP_NAME } from '../utils/constants';
 
 const Home = () => (
   <Root transparent={false}>
     <Head>
-      {/* <title>{ SHOPE_NAME.toUpperCase() } SHOP </title> */}
+      <title>{ SHOP_NAME.toUpperCase() } SHOP </title>
     </Head>
 
     <ProductsBanner />

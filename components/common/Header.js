@@ -9,7 +9,7 @@ import Navigation from './Navigation';
 import Portal from './atoms/Portal';
 import ClientOnly from './atoms/ClientOnly';
 import MobileNavigation from './MobileNavigation';
-import { SHOPE_NAME } from '../../utils/constants'
+import { SHOP_NAME } from '../../utils/constants'
 
 class Header extends Component {
   constructor(props) {
@@ -202,7 +202,7 @@ class Header extends Component {
             <Link className={`
                 text-4xl sm:text-6xl lg:text-9xl font-bold uppercase text-primary
               `} passHref href="/">
-              {SHOPE_NAME}
+              {SHOP_NAME}
             </Link>
           </div>
         </div>
@@ -217,7 +217,7 @@ class Header extends Component {
             <Link passHref href="/" className={`
                 text-2xl transition-all duration-700 ease-in-out font-extrabold uppercase text-primary
                 ${!isScrolledAndAllowed ? 'opacity-0' : 'opacity-100'}
-              `}>{SHOPE_NAME}
+              `}>{SHOP_NAME}
             </Link>
           </div>
           <Navigation className='hidden md:block' />

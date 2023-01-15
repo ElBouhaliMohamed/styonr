@@ -9,6 +9,7 @@ import Root from '../../components/common/Root';
 import Footer from '../../components/common/Footer';
 import TemplatePage from '../../components/common/TemplatePage';
 import LoggedOut from '../loggedOut';
+import { SHOP_NAME } from '../../utils/constants';
 
 export default function SingleOrderPage() {
   const router = useRouter();
@@ -172,14 +173,14 @@ export default function SingleOrderPage() {
   return (
     <Root>
       <Head>
-        <title>{ data.customer_reference } | commerce</title>
+        <title>{ data.customer_reference } | { SHOP_NAME }</title>
       </Head>
       <div className="account-container">
           <div className="custom-container py-5 my-4 my-sm-5">
             <div className="row mt-4">
               <div className="col-12">
                 {/* Breadcrumbs */}
-                <div className="d-flex pb-4 breadcrumb-container" className="font-size-caption text-decoration-underline cursor-pointer font-color-black">
+                <div className="d-flex pb-4 breadcrumb-container font-size-caption text-decoration-underline cursor-pointer font-color-black">
                   <Link href="/account">
                     Account
                   </Link>

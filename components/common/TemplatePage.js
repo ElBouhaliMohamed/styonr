@@ -3,12 +3,12 @@ import Head from 'next/head';
 import Root from './Root';
 import Footer from './Footer';
 import Header from './Header';
-
+import { SHOP_NAME } from '../../utils/constants';
 
 const TemplatePage = ({ page: data }) => (
   <Root>
     <Head>
-      <title>commerce</title>
+      <title>{ SHOP_NAME }</title>
     </Head>
     <Header />
     <div className="py-5 my-5 text-center">
