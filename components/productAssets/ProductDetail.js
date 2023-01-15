@@ -153,9 +153,6 @@ class ProductDetail extends Component {
         <p className="text-sm font-family-secondary font-semibold text-gray-700 mb-2">
           {name}
         </p>
-        <div className="mb-4 pb-3"
-          dangerouslySetInnerHTML={{ __html: description }}
-        />
 
         {/* Product Variant */}
         <div className="d-sm-block">

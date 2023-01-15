@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 export default connect(({ categories }) => ({ categories }))(
   ({ categories, current, className }) => (
     <div className={className}>
-      <h3 className="font-size-title font-weight-medium mb-3">Products</h3>
+      <h3 className="font-size-title font-weight-medium mb-3">Kategorien</h3>
       <ul style={{ 'listStyleType': 'none' }} className="pl-0">
         {categories.map(category => (
           <li key={category.slug}>

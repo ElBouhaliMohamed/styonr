@@ -15,10 +15,7 @@ import CategoryList from '../../components/products/CategoryList';
 import reduceProductImages from '../../lib/reduceProductImages';
 import Header from '../../components/common/Header';
 import Image from 'next/image';
-
-const detailView = `<p>
-  Slightly textured fabric with tonal geometric design and a bit of shine
-</p>`;
+import { SHOP_NAME } from '../../utils/constants';
 
 function Product({ product }) {
   const [showShipping, setShowShipping] = useState(false);
@@ -45,7 +42,7 @@ function Product({ product }) {
   return (
     <Root>
       <Head>
-        <title>{product.name} | commerce</title>
+        <title>{product.name} | {SHOP_NAME} </title>
       </Head>
       <div className="py-5">
         <div className="main-product-content">
@@ -104,7 +101,7 @@ function Product({ product }) {
               <div
                 className="pb-4 font-color-medium"
                 dangerouslySetInnerHTML={{
-                  __html: detailView
+                  __html: product.description
                 }}
               />
             </Collapse>
