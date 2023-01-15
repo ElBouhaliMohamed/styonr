@@ -9,15 +9,10 @@ import commerce from '../lib/commerce';
 import { loadStripe } from '@stripe/stripe-js';
 import { setCustomer } from '../store/actions/authenticateActions';
 
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
-
 const MyApp = ({ Component, pageProps }) => {
 
   const store = useStore(pageProps.initialState);
   const [stripePromise, setStripePromise] = useState(null);
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
-
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) { // has API key
@@ -42,17 +37,12 @@ const MyApp = ({ Component, pageProps }) => {
   }, [store])
 
   return (
-    <SessionContextProvider
-      supabaseClient={supabaseClient}
-      initialSession={pageProps.initialSession}
-    >
-      <Provider store={store}>
-        <Component
-          {...pageProps}
-          stripe={stripePromise}
-        />
-      </Provider>
-    </SessionContextProvider>
+    <Provider store={store}>
+      <Component
+        {...pageProps}
+        stripe={stripePromise}
+      />
+    </Provider>
   );
 
 }
