@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import commerce from '../../lib/commerce';
 import { Collapse } from 'react-collapse';
 import Head from 'next/head';
 import ErrorPage from 'next/error'
 import Root from '../../components/common/Root';
-import TemplatePage from '../../components/common/TemplatePage';
 import CarouselImages from '../../components/productAssets/CarouselImages';
 import ProductDetail from '../../components/productAssets/ProductDetail';
-import ClientReview from '../../components/productAssets/ClientReview';
+// import ClientReview from '../../components/productAssets/ClientReview';
 import SuggestedProducts from '../../components/productAssets/SuggestedProducts';
-import ExploreBanner from '../../components/productAssets/ExploreBanner';
+// import ExploreBanner from '../../components/productAssets/ExploreBanner';
 import Footer from '../../components/common/Footer';
-import SocialMedia from '../../components/common/SocialMedia';
+// import SocialMedia from '../../components/common/SocialMedia';
 import CategoryList from '../../components/products/CategoryList';
 import reduceProductImages from '../../lib/reduceProductImages';
 import Header from '../../components/common/Header';
+import Image from 'next/image';
 
 const detailView = `<p>
   Slightly textured fabric with tonal geometric design and a bit of shine
@@ -47,8 +47,7 @@ function Product({ product }) {
       <Head>
         <title>{product.name} | commerce</title>
       </Head>
-      <Header />
-      <div className="py-5 my-5">
+      <div className="py-5">
         <div className="main-product-content">
           {/* Sidebar */}
           <div className="product-sidebar">
@@ -62,10 +61,13 @@ function Product({ product }) {
           <div className="product-images">
             <div className="flex-grow-1">
               {Array.isArray(images) ? (images.map((image, i) => (
-                <img
+                <Image
                   key={i}
                   src={image}
-                  className="w-100 mb-3 carousel-main-images"
+                  alt="Produktbild"
+                  width={500}
+                  height={500}
+                  className="mb-3 carousel-main-images"
                 />
               ))) : (
                 ''

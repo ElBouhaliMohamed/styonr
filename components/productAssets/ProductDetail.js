@@ -28,7 +28,7 @@ class ProductDetail extends Component {
     if (!prevProps.product || prevProps.product.id !== this.props.product.id) {
       // Product was changed, reset selected variant group options
       this.setSelectedOptions();
-      this.setVoluntaryPrice();
+      // this.setVoluntaryPrice(this.props.product.price.raw);
     }
   }
 
@@ -37,7 +37,7 @@ class ProductDetail extends Component {
    */
   setVoluntaryPrice(price) {
     this.setState((_, props) => ({
-      voluntaryPrice: Math.max(props.product.price.raw, price || 0)
+      voluntaryPrice: price ?? props.product.price.raw
     }))
   }
 
@@ -97,7 +97,6 @@ class ProductDetail extends Component {
     }
 
     if (is_pay_what_you_want) {
-      console.log('Returning voluntaryPrice', voluntaryPrice);
       return voluntaryPrice;
     }
 
@@ -148,13 +147,15 @@ class ProductDetail extends Component {
     return (
       <div>
         {/* Product Summary */}
-        <div onClick={this.handleReviewClick} className="cursor-pointer">
+        {/* <div onClick={this.handleReviewClick} className="cursor-pointer">
           <ReviewStars count={4.5} />
-        </div>
-        <p className="text-sm font-family-secondary mt-2 mb-2">
+        </div> */}
+        <p className="text-sm font-family-secondary font-semibold text-gray-700 mb-2">
           {name}
         </p>
-        <div className="mb-4 pb-3 font-size-subheader">{(description || '').replace(reg, '')}</div>
+        <div className="mb-4 pb-3"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
 
         {/* Product Variant */}
         <div className="d-sm-block">
@@ -166,40 +167,34 @@ class ProductDetail extends Component {
           />
         </div>
 
-        { is_pay_what_you_want &&
-        <label htmlFor="price" className="block text-sm font-semibold text-gray-700">
-          Pay What You Want
-        </label>}
+        {is_pay_what_you_want &&
+          <label htmlFor="price" className="block text-sm font-semibold text-gray-700">
+            Pay What You Want
+          </label>}
+        <p>
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+        </p>
         <div className='flex items-center py-4 gap-2'>
           {/* Pay What You Want */}
-          { is_pay_what_you_want &&
-           <div className='block w-1/2'>
-            <div className="relative rounded-md shadow-sm group">
+          {is_pay_what_you_want &&
+            <div className='block w-1/2'>
               <input
-                type="number"
+                type="range"
                 name="price"
                 id="price"
-                className="
-                block w-full h-56 border-gray-300 pl-3 pr-4
-                focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm
-                disabled:cursor-not-allowed disabled:text-gray-500
-                "
-                placeholder={price.raw}
+                min={price.raw}
+                max={150}
+                step={1}
                 value={voluntaryPrice}
                 onChange={(e) => this.setVoluntaryPrice(e.target.value)}
                 disabled={soldOut}
-                aria-describedby="price-currency"
+                aria-describedby="price"
+                className='w-full'
               />
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 hover:pr-10">
-                <span className="text-gray-500 sm:text-sm" id="price-currency">
-                  EURO
-                </span>
-              </div>
-            </div>
-          </div>}
+            </div>}
 
           {/* Add to Cart & Price */}
-          <div className={`flex ${ is_pay_what_you_want ? 'w-1/2' : 'w-full' }`}>
+          <div className={`flex ${is_pay_what_you_want ? 'w-1/2' : 'w-full'}`}>
             <button onClick={this.handleAddToCart} disabled={soldOut}
               className="h-48 bg-black text-white pl-3 pr-4 flex items-center flex-grow-1" type="button">
               <span className="flex-grow-1 mr-3 text-center">
