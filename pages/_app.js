@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import commerce from '../lib/commerce';
 import { loadStripe } from '@stripe/stripe-js';
 import { setCustomer } from '../store/actions/authenticateActions';
+import { Analytics } from '@vercel/analytics/react';
 
 const MyApp = ({ Component, pageProps }) => {
 
@@ -42,6 +43,7 @@ const MyApp = ({ Component, pageProps }) => {
         {...pageProps}
         stripe={stripePromise}
       />
+      <Analytics />
     </Provider>
   );
 
