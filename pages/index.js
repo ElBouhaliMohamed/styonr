@@ -27,11 +27,12 @@ const Home = ({ products }) => (
   </Root>
 );
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await commerce.products.list();
   return {
     props: {
-      products: res.data
+      products: res.data,
+      revalidate: 60,
     }
   }
 }
