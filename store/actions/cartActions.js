@@ -1,6 +1,7 @@
 import commerce from '../../lib/commerce'
 
 import {
+  SET_CART_LOADING,
   RETRIEVE_CART_SUCCESS,
   RETRIEVE_CART_ERROR,
   ADD_TO_CART_SUCCESS,
@@ -63,12 +64,29 @@ export const addToCartError = (error) => {
   }
 }
 
+ export const setCartLoading = (value) => {
+  return {
+    type: SET_CART_LOADING,
+    payload: value
+  }
+}
+
 /**
  * Async add product to cart
  */
-export const addToCart = (productId, quantity, selectedOption) => (dispatch) => commerce.cart.add(productId, quantity, selectedOption)
-  .then(product => dispatch(addToCartSuccess(product)))
-  .catch(error => dispatch(addToCartError(error)));
+export const addToCart = (productId, quantity, selectedOption) => (dispatch) => {
+  dispatch(setCartLoading(true));
+  commerce.cart.add(productId, quantity, selectedOption)
+  .then(product => {
+    dispatch(addToCartSuccess(product))
+    dispatch(setCartLoading(false));
+  })
+  .catch(error => {
+    dispatch(addToCartError(error))
+    dispatch(setCartLoading(false));
+  });
+
+}
 
 
 /**

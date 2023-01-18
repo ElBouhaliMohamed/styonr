@@ -19,6 +19,7 @@ import {
   SET_CUSTOMER,
   CLEAR_CUSTOMER,
   UPDATE_BREAKPOINT,
+  SET_CART_LOADING,
 } from './actions/actionTypes';
 
 let store
@@ -36,6 +37,7 @@ const initialState = {
   customer: null,
   loading: {
     customer: true,
+    cart: false
   },
 };
 
@@ -85,13 +87,13 @@ const reducer = (state = initialState, action) => {
       return { ...state, cart: action.payload.cart };
     // Dispatch in Checkout client-side
     case GENERATE_CHECKOUT_TOKEN:
-      return { ...state, checkout: { ...state.checkout, checkoutTokenObject: action.payload }};
+      return { ...state, checkout: { ...state.checkout, checkoutTokenObject: action.payload } };
     // Dispatch in Checkout client-side
     case GET_SHIPPING_OPTIONS:
-      return { ...state, checkout: { ...state.checkout, shippingOptions: action.payload }};
+      return { ...state, checkout: { ...state.checkout, shippingOptions: action.payload } };
     // Dispatch in Checkout client-side
     case REMOVE_SHIPPING_OPTIONS:
-      return { ...state, checkout: { ...state.checkout, shippingOptions: [] }};
+      return { ...state, checkout: { ...state.checkout, shippingOptions: [] } };
     // Dispatch in Checkout client-side
     case UPDATE_CHECKOUT_LIVE_OBJECT:
       return {
@@ -111,7 +113,9 @@ const reducer = (state = initialState, action) => {
     case CAPTURE_ORDER_SUCCESS:
       return { ...state, checkout: initialState.checkout, orderReceipt: action.payload };
     case UPDATE_BREAKPOINT:
-      return { ...state, currentBreakpoint: action.payload || state.currentBreakpoint  }
+      return { ...state, currentBreakpoint: action.payload || state.currentBreakpoint }
+    case SET_CART_LOADING:
+      return { ...state, loading: { cart: action.payload || state.loading.cart , ...state.loading } }
     default:
       return state;
   }

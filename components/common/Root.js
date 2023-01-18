@@ -28,7 +28,7 @@ export default function Root({ transparent, children }) {
       <ClientOnly>
         <Header />
       </ClientOnly>
-      <div className={!transparent ? 'pt-[76px] sm:pt-[188px] md:pt-[192px] lg:pt-[272px]' : ''}>
+      <div className={!transparent ? 'root' : ''}>
         {children}
       </div>
     </>

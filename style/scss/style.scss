@@ -33,12 +33,15 @@
 @import "components/loader";
 @import "components/breadcrumbs";
 @import "components/product-card";
+
+.root {
+  @apply pt-[76px] sm:pt-[244px] md:pt-[244px] lg:pt-[244px];
+}
+
 // Header
 
 .mobile-header {
-  @apply -translate-y-24;
 }
 
 .animate-header {
-  @apply -translate-y-24 md:-translate-y-28 lg:-translate-y-44;
 }

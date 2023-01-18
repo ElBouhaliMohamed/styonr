@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { clearCustomer } from '../../store/actions/authenticateActions';
+import Image from 'next/image';
 import Link from 'next/link';
 import Cart from '../cart/Cart';
 import commerce from '../../lib/commerce';
-import Animation from '../cart/Animation';
+import Animation from '../cart/CartIcon';
 import Navigation from './Navigation';
 import Portal from './atoms/Portal';
 import ClientOnly from './atoms/ClientOnly';
 import MobileNavigation from './MobileNavigation';
-import { SHOP_NAME } from '../../utils/constants'
+import Logo from '../../public/logo.png'
 
 class Header extends Component {
   constructor(props) {
@@ -20,16 +21,12 @@ class Header extends Component {
       playAddToCartAnimation: false,
       loggedIn: false,
       isScrolled: false,
-      showMobileMenu: false,
     };
 
     this.header = React.createRef();
 
     this.animate = this.animate.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
-    this.handleMobileMenu = this.handleMobileMenu.bind(this);
-    this.activateMobileMenu = this.activateMobileMenu.bind(this);
-    this.toggleMobileMenu = this.toggleMobileMenu.bind(this);
     this.toggleCart = this.toggleCart.bind(this);
     this.toggleAddToCartAnimation = this.toggleAddToCartAnimation.bind(this);
     this.handleAddToCartToggle = this.handleAddToCartToggle.bind(this);
@@ -38,8 +35,6 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    this.activateMobileMenu();
-    window.addEventListener('resize', this.handleMobileMenu);
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('Commercejs.Cart.Item.Added', this.handleAddToCartToggle);
 
@@ -49,7 +44,6 @@ class Header extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleMobileMenu);
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('Commercejs.Cart.Item.Added', this.handleAddToCartToggle);
   }
@@ -61,18 +55,8 @@ class Header extends Component {
     });
   }
 
-  toggleMobileMenu() {
-    this.setState(state => ({
-      showMobileMenu: !state.showMobileMenu,
-    }));
-  }
-
   handleScroll() {
     window.requestAnimationFrame(this.animate);
-  }
-
-  handleMobileMenu() {
-    window.requestAnimationFrame(this.activateMobileMenu);
   }
 
   handleLogout() {
@@ -82,29 +66,7 @@ class Header extends Component {
     });
   }
 
-  activateMobileMenu() {
-    const { currentBreakpoint } = this.props;
-    const isMobile = currentBreakpoint === 'sm'
-    if (isMobile) {
-      this.header.current?.classList.add('mobile-header');
-    } else {
-      this.header.current?.classList.remove('mobile-header');
-      this.setState(_ => ({
-        showMobileMenu: false,
-      }));
-    }
-  }
-
   animate() {
-    const { currentBreakpoint } = this.props;
-    const isMobile = currentBreakpoint === 'sm'
-
-    this.activateMobileMenu();
-
-    if (isMobile) {
-      return;
-    }
-
     if (window.scrollY > 10) {
       this.setState({
         isScrolled: true
@@ -144,15 +106,7 @@ class Header extends Component {
     if (loggedIn) {
       return (
         <div className="flex items-center gap-3">
-          <div
-            className="relative cursor-pointer"
-            onClick={this.toggleCart}
-          >
-            <div className="absolute text-xs -translate-x-1 font-bold">
-              {cart.total_items}
-            </div>
-            <Animation isStopped={this.state.playAddToCartAnimation} />
-          </div>
+          {this.renderCartButton()}
           {customer && customer.firstname && (
             <span className="font-extralight">
             </span>
@@ -177,9 +131,22 @@ class Header extends Component {
     );
   }
 
+  renderCartButton() {
+    const { cart } = this.props;
+
+    return (
+      <div
+        className="relative flex flex-row-reverse cursor-pointer"
+        onClick={this.toggleCart}
+      >
+        <Animation totalItems={cart.total_items} isStopped={this.state.playAddToCartAnimation} />
+      </div>
+    )
+  }
+
   render() {
-    const { showCart, isScrolled, showMobileMenu, loggedIn } = this.state;
-    const { currentBreakpoint, cart } = this.props;
+    const { showCart, isScrolled, loggedIn } = this.state;
+    const { currentBreakpoint } = this.props;
     const isScrolledAndAllowed = currentBreakpoint === 'sm' || isScrolled;
     return (
       <header
@@ -194,57 +161,34 @@ class Header extends Component {
             <Cart isOpen={showCart} toggle={value => this.toggleCart(value)} />
           </Portal>
         </ClientOnly>
-        <div className='
-        transition-all duration-700 ease-in-out
-        flex items-center justify-center py-6 px-4
-        '>
-          <div className='inline-flex items-center justify-center'>
-            <Link className={`
-                text-4xl sm:text-6xl lg:text-9xl font-bold uppercase text-primary
-              `} passHref href="/">
-              {SHOP_NAME}
-            </Link>
+        <div className='flex items-center justify-center py-6 container mx-auto'>
+          <div className='w-1/3 hidden md:block'>
+            <Navigation />
           </div>
-        </div>
-        <div className='flex items-center py-6 px-4'>
-          {
-            isScrolledAndAllowed &&
-            <button onClick={this.toggleMobileMenu} className='sm:hidden bg-transparent'>
-              <img src="/icon/menu.svg" className='w-10' />
-            </button>
-          }
-          <div className='w-1/3'>
+          <div className='w-1/3 flex justify-center'>
             <Link passHref href="/" className={`
-                text-2xl transition-all duration-700 ease-in-out font-extrabold uppercase text-primary
-                ${!isScrolledAndAllowed ? 'opacity-0' : 'opacity-100'}
-              `}>{SHOP_NAME}
+                text-6xl transition-all duration-700 ease-in-out font-extrabold uppercase text-primary
+              `}>
+                <Image src={Logo} width={350} height={247} alt="logo" />
             </Link>
           </div>
-          <Navigation className='hidden md:block' />
           <div className={`
             transition-all duration-700 ease-in-out 
-            w-full md:w-1/3 inline-flex items-center justify-end
+            w-1/3 hidden md:inline-flex items-center justify-end
             gap-3
           `}>
             {typeof window !== 'undefined' && this.renderLoginLogout()}
-            {!loggedIn && <div
-              className="relative flex flex-row-reverse cursor-pointer"
-              onClick={this.toggleCart}
-            >
-              <Animation isStopped={this.state.playAddToCartAnimation} />
-              <div className="absolute text-xs font-bold">
-                {cart.total_items}
-              </div>
-            </div>}
+            {!loggedIn && this.renderCartButton()}
           </div>
         </div>
 
-        {
-          (typeof window !== 'undefined' && showMobileMenu) &&
+        {/* {
+          (typeof window !== 'undefined') &&
           <Portal nodeID='modals'>
-            <MobileNavigation toggleMobileMenu={this.toggleMobileMenu} />
+            <MobileNavigation>
+            </MobileNavigation>
           </Portal>
-        }
+        } */}
       </header>
     )
   }
@@ -253,7 +197,8 @@ class Header extends Component {
 export default connect(
   (state) => ({
     currentBreakpoint: state.currentBreakpoint,
-    cart: state.cart
+    cart: state.cart,
+    loading: state.loading
   }),
   { clearCustomer },
 )(Header);

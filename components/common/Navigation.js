@@ -28,7 +28,7 @@ const menuLinks = [
 export default function Navigation() {
   const router = useRouter();
 
-  return (<nav className="hidden sm:flex flex-row items-center justify-center gap-2 w-1/3" aria-label="Sidebar">
+  return (<nav className="flex flex-row flex-wrap items-center justify-start gap-2 max-w-sm" aria-label="Sidebar">
     {menuLinks.map((value, index) => {
       return <Link
         passHref href={value.link} key={index} className={router.pathname == value.link
