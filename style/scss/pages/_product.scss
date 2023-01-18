@@ -1,3 +1,5 @@
+$distanceToTop: 19rem; // 244px
+
 .main-product-content {
   max-width: 1440px;
   display: flex;
@@ -14,7 +16,7 @@
 
   .product-sidebar {
     display: flex;
-    top: 9.5rem;
+    top: $distanceToTop;
     min-width: 16rem;
     position: sticky;
     align-self: flex-start;
@@ -27,12 +29,12 @@
 
   .product-images {
     display: flex;
-    margin: 0 4rem;
+    margin: 0.8rem 4rem;
   }
 
   .product-detail {
     position: sticky;
-    top: 9.5rem;
+    top: $distanceToTop;
     min-width: 24rem;
     align-self: flex-start;
 
