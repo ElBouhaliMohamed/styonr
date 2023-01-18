@@ -62,8 +62,8 @@ function Product({ product }) {
                   key={i}
                   src={image}
                   alt="Produktbild"
-                  width={500}
-                  height={500}
+                  width={920}
+                  height={610}
                   className="mb-3 carousel-main-images"
                 />
               ))) : (
