@@ -137,7 +137,7 @@ class LoginHandler extends Component {
       <form>
         <label className="w-100 mb-4">
           <p className="mb-1 font-size-caption font-color-light text-left">
-            Email address
+            Email Addresse
           </p>
           <input
             name="email"
@@ -153,7 +153,7 @@ class LoginHandler extends Component {
           type="submit"
           onClick={this.loginCustomer}
         >
-          Get magic link
+          Magic link erhalten
         </button>
       </form>
     );
@@ -184,7 +184,7 @@ class LoginHandler extends Component {
             <div className="col-12 col-md-6 col-lg-6 offset-lg-3 offset-md-3  row-content text-center">
               <div className="py-5 px-4 px-sm-5">
                 <h2 className="font-size-header mb-4">
-                  Login
+                  Einloggen
                 </h2>
                 { this.renderAlert() }
                 { this.renderForm() }

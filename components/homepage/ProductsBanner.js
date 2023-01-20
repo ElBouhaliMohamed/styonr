@@ -8,13 +8,13 @@ function ProductsBanner({ products }) {
     <div className="custom-container py-5 my-5">
       <div className="d-flex flex-column align-items-center mb-5 pb-4">
         <p className="font-color-medium mb-4">
-          Introducing Our Latest Products
+          Limitiert und Einzigartig
         </p>
         <p
           className="text-center font-size-display1 mb-3 font-weight-medium"
           style={{ maxWidth: '32rem' }}
         >
-          Limited reservations on upcoming products and restocks.
+          Unsere letzten drops
         </p>
         <Link href="/collection" className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
           <p className="mr-3">Mehr Produkte</p>
