@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Image from 'next/image'
 import Link from 'next/link'
 import { Transition } from 'react-transition-group';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
@@ -6,6 +7,7 @@ import CartItem from '../cart/CartItem';
 import { connect } from 'react-redux';
 // Cart redux action creators
 import { retrieveCart as dispatchRetreiveCart, setLoadingCart } from '../../store/actions/cartActions';
+import spinner from '../../public/tail-spin.svg';
 
 const duration = 300;
 
@@ -58,7 +60,7 @@ class Cart extends Component {
 
   render() {
     const { isOpen, toggle } = this.props;
-    const { cart } = this.props;
+    const { cart, loading: { cart: isCartLoading } } = this.props;
 
     return (
       <Transition
@@ -87,6 +89,18 @@ class Cart extends Component {
                 ...transitionStyles[state]
               }}
             >
+              {
+                isCartLoading &&
+                <div className='fixed flex justify-center top-0 left-0 right-0 bottom-0 bg-black/40 z-50'>
+                  <Image
+                    width={64}
+                    height={64}
+                    alt='loading'
+                    src={spinner}
+                  />
+                </div>
+              }
+
               {/* Cart Header */}
               <div className="px-4 px-md-5">
                 <div className="pt-4 pb-3 borderbottom border-color-black d-flex justify-content-between align-items-center">
@@ -161,7 +175,9 @@ class Cart extends Component {
   }
 }
 
-export default connect(state => state, {
+export default connect((state) => ({
+  loading: state.loading,
+  cart: state.cart
+}), {
   dispatchRetreiveCart,
-  dispatchLoadingCart: setLoadingCart
 })(Cart);

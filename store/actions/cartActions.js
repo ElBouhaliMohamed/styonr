@@ -38,9 +38,16 @@ export const retrieveCartError = (error) => {
  * Async retrieve cart from API
  */
 export const retrieveCart = () => (dispatch) => {
+  dispatch(setCartLoading(true));
   return commerce.cart.retrieve()
-    .then(cart => dispatch(retrieveCartSuccess(cart)))
-    .catch(error => dispatch(retrieveCartError(error)));
+    .then(cart => {
+      dispatch(setCartLoading(false));
+      return dispatch(retrieveCartSuccess(cart))
+    })
+    .catch(error => {
+      dispatch(setCartLoading(false));
+      dispatch(retrieveCartError(error))
+    });
 }
 
 
@@ -64,7 +71,7 @@ export const addToCartError = (error) => {
   }
 }
 
- export const setCartLoading = (value) => {
+export const setCartLoading = (value) => {
   return {
     type: SET_CART_LOADING,
     payload: value
@@ -77,14 +84,14 @@ export const addToCartError = (error) => {
 export const addToCart = (productId, quantity, selectedOption) => (dispatch) => {
   dispatch(setCartLoading(true));
   commerce.cart.add(productId, quantity, selectedOption)
-  .then(product => {
-    dispatch(addToCartSuccess(product))
-    dispatch(setCartLoading(false));
-  })
-  .catch(error => {
-    dispatch(addToCartError(error))
-    dispatch(setCartLoading(false));
-  });
+    .then(product => {
+      dispatch(addToCartSuccess(product))
+      dispatch(setCartLoading(false));
+    })
+    .catch(error => {
+      dispatch(addToCartError(error))
+      dispatch(setCartLoading(false));
+    });
 
 }
 
@@ -112,9 +119,18 @@ export const updateCartItemError = (error) => {
 /**
  * Async update cart item
  */
-export const updateCartItem = (lineItemId, quantity) => (dispatch) => commerce.cart.update(lineItemId, { quantity })
-  .then(item => dispatch(updateCartItemSuccess(item)))
-  .catch(error => dispatch(updateCartItemError(error)));
+export const updateCartItem = (lineItemId, quantity) => (dispatch) => {
+  dispatch(setCartLoading(true));
+  return commerce.cart.update(lineItemId, { quantity })
+    .then(item => {
+      dispatch(setCartLoading(false));
+      dispatch(updateCartItemSuccess(item))
+    })
+    .catch(error => {
+      dispatch(setCartLoading(false));
+      dispatch(updateCartItemError(error))
+    });
+}
 
 /**
  * Handle remove cart item success and update store
@@ -139,6 +155,16 @@ export const removeFromCartError = (error) => {
 /**
  * Async remove cart item
  */
-export const removeFromCart = (lineItemId) => (dispatch) => commerce.cart.remove(lineItemId)
-  .then(resp => dispatch(removeFromCartSuccess(resp)))
-  .catch(error => dispatch(removeFromCartError(error)));
+export const removeFromCart = (lineItemId) => (dispatch) => {
+  dispatch(setCartLoading(true));
+  return commerce.cart.remove(lineItemId)
+    .then(resp => {
+      dispatch(setCartLoading(true));
+
+      dispatch(removeFromCartSuccess(resp))
+    })
+    .catch(error => {
+      dispatch(setCartLoading(true));
+      dispatch(removeFromCartError(error))
+    })
+};

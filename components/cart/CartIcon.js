@@ -17,7 +17,7 @@ function Animation({ totalItems, isStopped, loading: { cart: isCartLoading }}) {
   };
 
   return (
-    <div className="cart-animation relative flex flex-row">
+    <div className={`cart-animation relative flex flex-row ${isCartLoading ? 'animate-bounce' : ''} `}>
       <Lottie
         options={defaultOptions}
         height={24}
@@ -25,7 +25,18 @@ function Animation({ totalItems, isStopped, loading: { cart: isCartLoading }}) {
         isStopped={!isStopped}
       />
       <div className="text-xs font-bold">
-        { isCartLoading ? <Image className='text-black  translate-x-2 -translate-y-1' width={16} height={16} alt='loading' src={spinner} /> : totalItems }
+        { 
+        isCartLoading ? 
+        totalItems &&
+        <Image 
+          className='text-black font-extrabold -translate-y-1' 
+          width={8} 
+          height={8} 
+          alt='loading' 
+          src={spinner}
+        />
+        : totalItems
+        }
       </div>
     </div>
   );

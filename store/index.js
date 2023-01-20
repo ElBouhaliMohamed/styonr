@@ -115,7 +115,8 @@ const reducer = (state = initialState, action) => {
     case UPDATE_BREAKPOINT:
       return { ...state, currentBreakpoint: action.payload || state.currentBreakpoint }
     case SET_CART_LOADING:
-      return { ...state, loading: { cart: action.payload || state.loading.cart , ...state.loading } }
+      console.log(action, SET_CART_LOADING, state.loading)
+      return { ...state, loading: { cart: action.payload } }
     default:
       return state;
   }
