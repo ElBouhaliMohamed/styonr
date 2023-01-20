@@ -153,7 +153,7 @@ class Header extends Component {
         ref={this.header}
         className={`
         fixed top-0 left-0 right-0 z-10 transition-all duration-700 ease-in-out
-        ${!isScrolledAndAllowed ? 'bg-white/20' : 'bg-white/80 backdrop-blur-md border-b border-slate-100'}
+        ${!isScrolledAndAllowed ? 'bg-black' : 'bg-black/80 backdrop-blur-md border-b border-slate-100'}
         `}
       >
         <ClientOnly>
