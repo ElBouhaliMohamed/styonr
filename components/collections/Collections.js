@@ -10,36 +10,6 @@ class Collections extends Component {
 
     this.sidebar = React.createRef();
     this.page = React.createRef();
-
-    this.handleScroll = this.handleScroll.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll() {
-    const animate = () => {
-      if (!this.page.current) {
-        return;
-      }
-
-      const distance =
-        this.page.current.getBoundingClientRect().bottom -
-        window.innerHeight;
-
-      if (distance < 0) {
-        this.sidebar.current.style.transform = `translateY(${distance}px)`;
-      } else {
-        this.sidebar.current.style.transform = 'translateY(0px)';
-      }
-    };
-
-    window.requestAnimationFrame(animate);
   }
 
   renderSidebar() {
@@ -54,7 +24,7 @@ class Collections extends Component {
                 <p className="font-size-title font-weight-medium mb-3">
                   {category.name}
                 </p>
-                <Link className="mb-5 font-color-black" href={`/collection#${category.slug}`}>
+                <Link className="mb-5 font-color-black" href={`/products/all#${category.slug}`}>
                   <div className="d-flex">
                     <p className="mb-2 position-relative cursor-pointer">
                       Products
@@ -132,14 +102,13 @@ class Collections extends Component {
           {/* Sidebar */}
           <div
             ref={this.sidebar}
-            className=""
-            style={{ top: '7.5rem' }}
+            className="sticky top-[23rem] z-10"
           >
             { this.renderSidebar() }
           </div>
 
           {/* Main Content */}
-          <div ref={this.page} className="custom-container">
+          <div ref={this.page} className="container mx-auto -translate-y-[19rem]">
             <div className="row">
               <div className="col-12 col-lg-10 offset-lg-2">
                 { this.renderCollection() }
@@ -152,5 +121,5 @@ class Collections extends Component {
   }
 }
 
-export default connect(state => state)(Collections);
+export default Collections;
 

@@ -35,6 +35,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
+    this.handleScroll()
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('Commercejs.Cart.Item.Added', this.handleAddToCartToggle);
 

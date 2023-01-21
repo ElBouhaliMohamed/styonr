@@ -8,7 +8,7 @@ const menuLinks = [
   },
   {
     name: 'Shop',
-    link: '/collection'
+    link: '/products/all'
   },
   {
     name: 'Vision',

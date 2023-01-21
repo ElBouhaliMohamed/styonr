@@ -13,11 +13,10 @@ import Footer from '../../components/common/Footer';
 // import SocialMedia from '../../components/common/SocialMedia';
 import CategoryList from '../../components/products/CategoryList';
 import reduceProductImages from '../../lib/reduceProductImages';
-import Header from '../../components/common/Header';
 import Image from 'next/image';
 import { SHOP_NAME } from '../../utils/constants';
 
-function Product({ product }) {
+function Product({ product, products }) {
   const [showShipping, setShowShipping] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   
@@ -111,7 +110,7 @@ function Product({ product }) {
       </div>
 
       {/* <ClientReview /> */}
-      <SuggestedProducts />
+      <SuggestedProducts products={products} />
       {/* <ExploreBanner /> */}
       {/* <SocialMedia /> */}
       <Footer />
@@ -120,6 +119,7 @@ function Product({ product }) {
 }
 
 export async function getStaticProps({ params }) {
+  const { data: products } = await commerce.products.list();
   const product = await commerce.products.retrieve(params.permalink, { type: 'permalink ' });
 
   if (!product) {
@@ -130,7 +130,8 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      product
+      product,
+      products
     },
     revalidate: 60, // In seconds
   }
