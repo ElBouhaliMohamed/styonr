@@ -127,7 +127,7 @@ class Header extends Component {
 
     return (
       <Link className="text-black font-semibold text-md" href="/login">
-        Login
+        Einloggen
       </Link>
     );
   }

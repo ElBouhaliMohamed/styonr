@@ -21,7 +21,7 @@ class CategoryBanner extends Component {
                 key={`category-item-${index}`}
                 className="col-12 col-md-4 collection-item mb-5"
               >
-                <Link href={`/collection#${item.slug}`} key={item.id} className="align-items-center font-color-black flex-column cursor-pointer mb-5">
+                <Link href={`/products/all#${item.slug}`} key={item.id} className="align-items-center font-color-black flex-column cursor-pointer mb-5">
                   <div>
                     {item.meta?.image && (
                       <div

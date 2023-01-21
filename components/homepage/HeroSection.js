@@ -18,32 +18,33 @@ const params = {
   }
 };
 const images = [
-  '/images/home-1.jpg',
-  '/images/home-2.jpg',
-  '/images/home-3.jpg',
-  '/images/home-4.jpg',
+  '/images/home (1).jpg',
+  '/images/home (2).jpg',
+  '/images/home (3).jpg',
+  '/images/home (4).jpg',
+  '/images/home (5).jpg',
 ];
 
 export default function HeroSection() {
   SwiperCore.use([Autoplay, EffectFade]);
   return (
-    <div className="hero-section position-relative">
+    <div className="relative bg-cover bg-center">
       <Swiper {...params}>
         {images.map((image, index) => (
           <SwiperSlide key={image}>
             <div
-              className="hero-slide d-flex align-items-center justify-content-center flex-column font-color-white py-5"
+              className="min-h-[85vh]  flex items-center justify-center flex-col text-white py-5"
               style={{
                 backgroundImage: `url("${image}")`
               }}
             >
               <p className="font-size-display5 font-family-secondary mb-4 text-center hero-header">
-                The care you&apos;ve always needed
+                Fashion which you can feel good about
               </p>
               <p className="text-transform-uppercase font-size-title mb-5 hero-subheader">
                 A range of products for you
               </p>
-              <Link href="/collection" className="d-flex align-items-center bg-transparent border border-color-white h-56 px-5 font-color-white hero-btn">
+              <Link href="/products/all" className="d-flex align-items-center bg-transparent border border-color-white h-56 px-5 font-color-white hero-btn">
                 Shop now
               </Link>
             </div>

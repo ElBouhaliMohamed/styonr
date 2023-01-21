@@ -8,6 +8,11 @@ import { Provider } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
 import { setCustomer } from '../store/actions/authenticateActions';
 import { Analytics } from '@vercel/analytics/react';
+import { Cabin } from '@next/font/google';
+
+const rubik = Cabin({
+  subsets: ['latin']
+})
 
 const MyApp = ({ Component, pageProps }) => {
   const store = useStore(pageProps.initialState);
@@ -36,6 +41,7 @@ const MyApp = ({ Component, pageProps }) => {
   }, [store])
 
   return (
+    <main className={rubik.className}>
     <Provider store={store}>
       <Component
         {...pageProps}
@@ -43,6 +49,7 @@ const MyApp = ({ Component, pageProps }) => {
       />
       <Analytics />
     </Provider>
+    </main>
   );
 
 }

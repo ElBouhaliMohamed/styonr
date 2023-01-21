@@ -169,8 +169,11 @@ class ProductDetail extends Component {
             Pay What You Want
           </label>}
         <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-        </p>
+          Unser Shop bietet das innovative "Pay What You Want"-Konzept.
+          Du bestimmst den Preis für unsere Produkte und Dienstleistungen.
+          Kein fester Preis, lediglich einen Mindestpreis um unsere Kosten zu decken, ansonsten entscheidest du!
+          Bezahle was du für angemessen hältst.
+          Unterstütze uns und mach unsere Angebote zugänglich für alle. Vielen Dank für deine Unterstützung.        </p>
         <div className='flex items-center py-4 gap-2'>
           {/* Pay What You Want */}
           {is_pay_what_you_want &&
@@ -195,7 +198,7 @@ class ProductDetail extends Component {
             <button onClick={this.handleAddToCart} disabled={soldOut}
               className="h-48 bg-black text-white pl-3 pr-4 flex items-center flex-grow-1" type="button">
               <span className="flex-grow-1 mr-3 text-center">
-                {soldOut ? 'Sold out' : 'Add to cart'}
+                {soldOut ? 'Ausverkaut' : 'In den Warenkorb'}
               </span>
               <span className="border-left border-white pl-3">
                 {priceSymbol}{this.getPrice()}

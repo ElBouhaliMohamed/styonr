@@ -16,7 +16,7 @@ function ProductsBanner({ products }) {
         >
           Unsere letzten drops
         </p>
-        <Link href="/collection" className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
+        <Link href="/products/all" className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
           <p className="mr-3">Mehr Produkte</p>
           <img src="/icon/arrow-long-right.svg" />
         </Link>

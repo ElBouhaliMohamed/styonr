@@ -138,7 +138,7 @@ class Cart extends Component {
                     </div>
                     <div className="row">
                       <div className="col-6 d-none d-md-block">
-                        <Link href="/collection"
+                        <Link href="/products/all"
                           className="h-56 d-flex align-items-center justify-content-center border border-color-black bg-white w-100 flex-grow-1 font-weight-medium font-color-black px-3">
                           Weiter Shoppen
                         </Link>

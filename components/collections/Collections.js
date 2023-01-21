@@ -108,7 +108,7 @@ class Collections extends Component {
           </div>
 
           {/* Main Content */}
-          <div ref={this.page} className="container mx-auto -translate-y-[19rem]">
+          <div ref={this.page} className="container mx-auto -translate-y-[12rem]">
             <div className="row">
               <div className="col-12 col-lg-10 offset-lg-2">
                 { this.renderCollection() }

@@ -16,10 +16,10 @@ import reduceProductImages from '../../lib/reduceProductImages';
 import Image from 'next/image';
 import { SHOP_NAME } from '../../utils/constants';
 
-function Product({ product, products }) {
+function Product({ product, products, categories }) {
   const [showShipping, setShowShipping] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-  
+
   const toggleShipping = () => {
     setShowShipping(!showShipping);
   }
@@ -50,6 +50,7 @@ function Product({ product, products }) {
             <CategoryList
               className="product-left-aside__category-list"
               current={product.categories[0] && product.categories[0].id}
+              categories={categories}
             />
             <CarouselImages images={images} />
           </div>
@@ -79,13 +80,19 @@ function Product({ product, products }) {
               onClick={toggleShipping}
               className="d-flex cursor-pointer py-3 justify-content-between font-weight-medium"
             >
-              Shipping and returns
+              Versandinformationen
               <img src="/icon/plus.svg" />
             </div>
             <Collapse isOpened={showShipping}>
               <div className="pb-4 font-color-medium">
-                Arrives in 5 to 7 days, returns accepted within 30
-                days. For more information, click here.
+                <p>
+                  Versand innerhalb Deutschlands:
+                </p>
+                <ul>
+                  <li> 0-5kg: 4,90€ </li>
+                  <li> 5-31kg: 9,90€</li>
+                  <li> Ab 100€ Bestellwert versandkostenfrei. </li>
+                </ul>
               </div>
             </Collapse>
             <div className="h-1 border-bottom border-color-black" />
@@ -119,6 +126,7 @@ function Product({ product, products }) {
 }
 
 export async function getStaticProps({ params }) {
+  const { data: categories } = await commerce.categories.list();
   const { data: products } = await commerce.products.list();
   const product = await commerce.products.retrieve(params.permalink, { type: 'permalink ' });
 
@@ -131,7 +139,8 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       product,
-      products
+      products,
+      categories
     },
     revalidate: 60, // In seconds
   }

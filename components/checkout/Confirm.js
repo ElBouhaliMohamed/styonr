@@ -120,7 +120,7 @@ class Confirm extends Component {
                   <Link href="/" className="checkout-confirm-buttons px-3 py-3 text-center flex-grow-1 border bg-white border-color-gray500 font-color-light mb-2 mb-sm-0 mr-sm-2 no-print">
                     Go back home
                   </Link>
-                  <Link href="/collection" className="checkout-confirm-buttons px-3 py-3 text-center flex-grow-1 bg-black font-color-white no-print">
+                  <Link href="/products/all" className="checkout-confirm-buttons px-3 py-3 text-center flex-grow-1 bg-black font-color-white no-print">
                     Continue shopping
                   </Link>
                 </div>
