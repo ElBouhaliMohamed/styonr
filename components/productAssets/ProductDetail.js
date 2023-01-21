@@ -169,8 +169,8 @@ class ProductDetail extends Component {
             Pay What You Want
           </label>}
         <p>
-          Unser Shop bietet das innovative "Pay What You Want"-Konzept.
-          Du bestimmst den Preis für unsere Produkte und Dienstleistungen.
+          Unser Shop bietet das innovative <b>Pay What You Want-Konzept</b>.
+          <b>Du bestimmst den Preis</b> für unsere Produkte und Dienstleistungen.
           Kein fester Preis, lediglich einen Mindestpreis um unsere Kosten zu decken, ansonsten entscheidest du!
           Bezahle was du für angemessen hältst.
           Unterstütze uns und mach unsere Angebote zugänglich für alle. Vielen Dank für deine Unterstützung.        </p>
